@@ -18,7 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('topicality', App\Http\Controllers\TopicalityController::class);
+Route::middleware('auth.api')->group(function(){
+    Route::apiResource('topicality', TopicalityController::class);
+});
+
+// Route::apiResource('topicality', App\Http\Controllers\TopicalityController::class);
 
 Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
 
